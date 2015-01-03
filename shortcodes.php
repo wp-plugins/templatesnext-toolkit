@@ -38,15 +38,15 @@ function tx_blog_function($atts, $content = null) {
       	'carousel' => 'no',								
    	), $atts);
 	
- 	$post_in_cat = tx_shortcodes_comma_delim_to_array( $atts['category_id'] );
+	$post_in_cat = tx_shortcodes_comma_delim_to_array( $atts['category_id'] );
 
 	$posts_per_page = intval( $atts['items'] );
 	$total_column = intval( $atts['columns'] );
 	$tx_category = $atts['showcat'];
 	$tx_carousel = $atts['carousel'];
 	
-	$return_string = '';	
-
+	$return_string = '';
+	
 	if( $tx_carousel == 'no' ) {
    		$return_string .= '<div class="tx-blog tx-post-row tx-masonry">';
 	} else
@@ -62,10 +62,12 @@ function tx_blog_function($atts, $content = null) {
 		'orderby' => 'date', 
 		'order' => 'DESC',
 		'ignore_sticky_posts' => 1,
-		//'post__in' => 2//$post_in_cat, //use post ids		
+		'category__in' => $post_in_cat, //use post ids		
 	);
 	//$args['paging'] = true;
 	/**/
+	
+
 	query_posts( $args );   
    
 	if ( have_posts() ) : while ( have_posts() ) : the_post();

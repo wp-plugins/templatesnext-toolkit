@@ -4,7 +4,7 @@ Contributors: marsian
 Tags: shortcode, shortcodes, columns, column, section, sections, testimonials, border, borders, button, buttons, masonry, posts, post_type, font awesome, icons, fontawesome
 Requires at least: 3.6
 Tested up to: 4.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
