@@ -12,7 +12,8 @@ Custom Portfolio, Testimonial and Shortcode functionality for TemplatesNext Word
 
 == Description ==
 
-Custom Portfolio, Testimonial and Shortcode functionality for TemplatesNext Wordpress Themes
+Custom Portfolio, Testimonial and Shortcode functionality for TemplatesNext Wordpress Themes.
+
 Demo and documentation : http://www.templatesnext.org/icreate/?page_id=541
 
 Some of the shortcode may not work properly with any other themes.
