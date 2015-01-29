@@ -42,6 +42,8 @@
 	        			: false,
 	        'supports' => array('title', 'editor', 'thumbnail'),
 	        'has_archive' => true,
+			'menu_icon' => 'dashicons-art',
+
 	        'taxonomies' => array('portfolio-category')
 	       );  
 

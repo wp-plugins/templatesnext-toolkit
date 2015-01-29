@@ -54,6 +54,7 @@
 		<p class="submit">\
 			<input type="button" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		var width = jQuery(window).width(), H = jQuery(window).height(), W = ( 720 < width ) ? 720 : width;
@@ -181,6 +182,7 @@
 			<input type="button" id="portfolio-submit" class="button-primary" value="Insert Portfolio" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		
@@ -265,6 +267,7 @@
 			<input type="button" id="blog-submit" class="button-primary" value="Insert Posts" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		
@@ -322,7 +325,7 @@
 			<input type="button" id="column-submit" class="button-primary" value="Insert Columns" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
-		<div class="tnext-bottom-lebel">TemplatesNext Shortcodes</div>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		var table = form_column.find('#column-table');
@@ -386,7 +389,7 @@
 			<input type="button" id="devider-submit" class="button-primary" value="Insert Devider" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
-		<div class="tnext-bottom-lebel">TemplatesNext Shortcodes</div>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		var table = form_devider.find('#devider-table');
@@ -432,7 +435,7 @@
 			<input type="button" id="testimonial-submit" class="button-primary" value="Insert Testimonials" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
-		<div class="tnext-bottom-lebel">TemplatesNext Shortcodes</div>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		var table = form_testimonial.find('#testimonial-table');
@@ -498,7 +501,7 @@
 			<input type="button" id="button-submit" class="button-primary" value="Insert Button" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
-		<div class="tnext-bottom-lebel">TemplatesNext Shortcodes</div>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		var table = form_button.find('#button-table');
@@ -561,7 +564,7 @@
 			<input type="button" id="button-submit" class="button-primary" value="Insert Call to act" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
-		<div class="tnext-bottom-lebel">TemplatesNext Shortcodes</div>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		var table = form_calltoact.find('#calltoact-table');
@@ -619,7 +622,7 @@
 			<input type="button" id="button-submit" class="button-primary" value="Insert Call to act" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
-		<div class="tnext-bottom-lebel">TemplatesNext Shortcodes</div>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		var table = form_services.find('#services-table');
@@ -675,7 +678,7 @@
 			<input type="button" id="spacer-submit" class="button-primary" value="Insert Spacer" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
-		<div class="tnext-bottom-lebel">TemplatesNext Shortcodes</div>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
 		var table = form_spacer.find('#spacer-table');

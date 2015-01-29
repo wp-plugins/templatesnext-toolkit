@@ -1,10 +1,10 @@
 === TemplatesNext ToolKit ===
 
 Contributors: marsian
-Tags: shortcode, shortcodes, columns, column, section, sections, testimonials, border, borders, button, buttons, masonry, posts, post_type, font awesome, icons, fontawesome
+Tags: shortcode, shortcodes, columns, column, section, sections, portfolio, testimonial, border, borders, button, buttons, masonry, posts, post_type, font awesome, icons, fontawesome
 Requires at least: 3.6
 Tested up to: 4.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,8 +13,9 @@ Custom Portfolio, Testimonial and Shortcode functionality for TemplatesNext Word
 == Description ==
 
 Custom Portfolio, Testimonial and Shortcode functionality for TemplatesNext Wordpress Themes
+Demo and documentation : http://www.templatesnext.org/icreate/?page_id=541
 
-Not intended to work with any other themes.
+Some of the shortcode may not work properly with any other themes.
 
 == Installation ==
 

@@ -32,6 +32,7 @@
 	        'rewrite' => false,
 	        'supports' => array('title', 'editor', 'thumbnail'),
 	        'has_archive' => true,
+			'menu_icon' => 'dashicons-editor-quote',
 	        'taxonomies' => array('testimonials-category')
 	       );  
 	  
