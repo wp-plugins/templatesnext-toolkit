@@ -4,7 +4,7 @@ Contributors: marsian
 Tags: shortcode, shortcodes, columns, column, section, sections, portfolio, testimonial, border, borders, button, buttons, masonry, posts, post_type, font awesome, icons, fontawesome
 Requires at least: 3.6
 Tested up to: 4.1
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,7 +26,7 @@ Install the plugin into the `/wp-content/plugins/` folder, and activate it.
 == Changelog ==
 
 
-= 1.0.8 =
+= 1.0.7 =
 * Added pagination for recent posts (blog) shortcode.
 * Added heading shortcode.
 * Added product carousel for WooCommerce.

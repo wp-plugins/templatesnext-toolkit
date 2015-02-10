@@ -3,7 +3,7 @@
 /*
 Plugin Name: TemplatesNext ToolKit
 Description: Custom Portfolio and Shortcode functionality for TemplatesNext Wordpress Themes
-Version: 1.0.8
+Version: 1.0.9
 Author: TemplatesNext
 Author URI: http://templatesnext.org/
 License: GPLv2 or later
@@ -81,8 +81,8 @@ require_once('custom-post-types/itrans-slider.php');
 /*	Metabox
 /*-----------------------------------------------------------------------------------*/ 
 
-require_once('/inc/tnext-meta.php');
-require_once('/inc/meta-box/meta-box.php');
+require_once('inc/tnext-meta.php');
+require_once('inc/meta-box/meta-box.php');
 
 
 
