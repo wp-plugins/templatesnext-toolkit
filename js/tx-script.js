@@ -30,6 +30,52 @@ jQuery(document).ready(function ($) {
 		$(this).owlCarousel({
 			items : car_columns,
 			stopOnHover : true,
+			paginationSpeed : 1000,
+			navigation : true,
+			goToFirstSpeed : 2000,
+			singleItem : false,
+			autoHeight : true,
+			navigationText: ['<span class="genericon genericon-leftarrow"></span>','<span class="genericon genericon-rightarrow"></span>'],
+			addClassActive: true,
+			theme : "tx-owl-theme"
+		});
+	});
+	
+	
+	//Products carousel
+	$('.tx-prod-carousel').each(function () {
+	
+		var _this = $(this);
+		var car_columns = _this.data('columns');
+			
+		$(this).children('div').children('ul').owlCarousel({
+			items : car_columns,
+			stopOnHover : true,
+			//navigation:true,
+			paginationSpeed : 1000,
+			navigation : true,
+			goToFirstSpeed : 2000,
+			singleItem : false,
+			autoHeight : true,
+			//navigationText:	["<i class=\"fa fa-angle-left\"></i>","<i class=\"fa fa-angle-right\"></i>"],
+			//theme: "tx-custom-slider",
+			navigationText: ['<span class="genericon genericon-leftarrow"></span>','<span class="genericon genericon-rightarrow"></span>'],
+			addClassActive: true,
+			theme : "tx-owl-theme"
+		});
+	});	
+	
+	//Related Product
+	$('.related.products').each(function () {
+	
+		var _this = $(this);
+		var car_columns = _this.data('columns');
+		
+		car_columns = 4;
+			
+		$(this).children('ul').owlCarousel({
+			items : car_columns,
+			stopOnHover : true,
 			//navigation:true,
 			paginationSpeed : 1000,
 			navigation : true,
@@ -43,6 +89,27 @@ jQuery(document).ready(function ($) {
 			theme : "tx-owl-theme"
 		});
 	});
+	
+	
+	$('.tx-slider').each(function () {
+		
+		var _this = $(this);
+		var slider_delay = _this.data('delay');
+				
+		$(this).owlCarousel({
+			autoPlay : slider_delay,
+			stopOnHover : true,
+			navigation: true,
+			paginationSpeed : 1000,
+			goToFirstSpeed : 2000,
+			singleItem : true,
+			autoHeight : true,
+			navigationText: ['<span class="genericon genericon-leftarrow"></span>','<span class="genericon genericon-rightarrow"></span>'],
+			addClassActive: true,
+			theme : "tx-owl-theme",
+			pagination : true	
+		});
+	});			
 		
 			
 	// colorboxpopup
@@ -70,7 +137,7 @@ jQuery(document).ready(function ($) {
 		  //itemSelector: '.widget'
 		});	
 	});
-	*/	
+	*/
 	
 	
 

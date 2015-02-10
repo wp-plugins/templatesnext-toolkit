@@ -35,6 +35,7 @@ function tx_blog_function($atts, $content = null) {
       	'columns' => 4,
       	'showcat' => 'show',
       	'category_id' => '',
+		'show_pagination' => 'no',		
       	'carousel' => 'no',								
    	), $atts);
 	
@@ -64,16 +65,30 @@ function tx_blog_function($atts, $content = null) {
 		'ignore_sticky_posts' => 1,
 		'category__in' => $post_in_cat, //use post ids		
 	);
-	//$args['paging'] = true;
-	/**/
-	
 
-	query_posts( $args );   
+	if ($atts['show_pagination'] == 'yes' && $atts['carousel'] == 'no' )
+	{	
+		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+		$args['paged'] = $paged;
+		$args['prev_text'] = __('&laquo;','tx');
+		$args['next_text'] = __('&raquo;','tx');
+		$args['show_all'] = false;
+	}
+
+	
+	query_posts( $args );
    
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
+	
+		if (in_array("tx-medium", get_intermediate_image_sizes())) {
+			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'tx-medium' );
+		} else
+		{
+			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+		}	
+		$full_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 		
-		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'tx-medium' );
-		$full_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+
 		
 		$return_string .= '<div class="tx-blog-item tx-post-col-'.$total_column.'"><div class="tx-border-box">';
 
@@ -107,7 +122,38 @@ function tx_blog_function($atts, $content = null) {
   
    	$return_string .= '</div>';
 
+	if ($atts['show_pagination'] == 'yes' && $atts['carousel'] == 'no' ) {
+		$return_string .= '<div class="nx-paging"><div class="nx-paging-inner">'.paginate_links( $args ).'</div></div>';
+	}
+
    	wp_reset_query();
+
+   	return $return_string;
+}
+
+// heading
+
+function tx_heading_function($atts, $content = null) {
+	
+	//[tx_heading style=”default” heading_text=”Heading Text” tag=”h1″ size=”24″ margin=”24″]
+	
+   	$atts = shortcode_atts(array(
+      	'style' => 'default',
+      	'heading_text' => 'Heading Text',
+      	'tag' => 'h2',
+      	'size' => '24',	
+      	'margin' => '24',
+      	'align' => 'left',
+      	'class' => '',
+   	), $atts);
+	
+	$return_string ='';
+
+   	$return_string .= '<div class="tx-heading" style="margin-bottom:'.$atts['margin'].'px; text-align: '.$atts['align'].';">';
+   	$return_string .= '<'.$atts['tag'].' class="tx-heading-tag" style="font-size:'.$atts['size'].'px;">';	
+	$return_string .= do_shortcode($atts['heading_text']);
+   	$return_string .= '</'.$atts['tag'].'>';
+   	$return_string .= '</div>';	
 
    	return $return_string;
 }
@@ -328,7 +374,8 @@ function tx_portfolio_function($atts, $content = null) {
       	'columns' => 4,
 		'hide_cat' => 'no',
 		'hide_excerpt' => 'no',
-		'carousel' => 'no',		
+		'show_pagination' => 'no',
+		'carousel' => 'no',
    	), $atts);
 	
    
@@ -356,14 +403,26 @@ function tx_portfolio_function($atts, $content = null) {
 		'orderby' => 'date',
 		'order' => 'DESC'
 	);
-	//$args['paging'] = true; 
-	/**/
-	query_posts( $args );   
-   
+
+	if ($atts['show_pagination'] == 'yes' && $atts['carousel'] == 'no' )
+	{
+		$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+		$args['paged'] = $paged;
+		$args['prev_text'] = __('&laquo;','tx');
+		$args['next_text'] = __('&raquo;','tx');
+	}
+
+	query_posts( $args );
+
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
 	
-		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'tx-medium' );
-		$full_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+		if (in_array("tx-medium", get_intermediate_image_sizes())) {
+			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'tx-medium' );
+		} else
+		{
+			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
+		}		
+		$full_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
 	
 
 		$return_string .= '<div class="tx-portfolio-item tx-post-col-'.$total_column.'"><div class="tx-border-box">';
@@ -390,11 +449,143 @@ function tx_portfolio_function($atts, $content = null) {
 	endif;
   
    	$return_string .= '</div>';
+	
+	if ($atts['show_pagination'] == 'yes' && $atts['carousel'] == 'no' )
+	{	
+		$return_string .= '<div class="nx-paging"><div class="nx-paging-inner">'.paginate_links( $args ).'</div></div>';
+	}
+	
+
+   	wp_reset_query();
+	
+   	return $return_string;
+}
+
+// button 
+
+function tx_prodscroll_function($atts, $content = null) {
+	
+	//[tx_prodscroll type="products" ids="21,28,54,87" columns="4" items="8"]
+	
+   	$atts = shortcode_atts(array(
+      	'type' => 'products',
+		'ids' => '',
+		'columns' => '4',
+		'items' => '8',
+		'class' => '',
+   	), $atts);
+	
+	$return_string ='';
+	$prod_shortcode = '';
+	
+	
+	if ( !empty($atts['ids']) && ( $atts['type'] == 'product_categories' || $atts['type'] == 'products' ))
+	{
+		if ( $atts['type'] == 'product_categories' )
+		{
+			$prod_shortcode = '['.$atts['type'].' number="'.$atts['items'].'" columns="'.$atts['columns'].'" ids="'.$atts['ids'].'"]';
+		} else
+		{
+			$prod_shortcode = '['.$atts['type'].' per_page="'.$atts['items'].'" columns="'.$atts['columns'].'" ids="'.$atts['ids'].'"]';
+		}
+	} else
+	{
+		if ( $atts['type'] == 'product_categories' )
+		{
+			$prod_shortcode = '['.$atts['type'].' number="'.$atts['items'].'" columns="'.$atts['columns'].'"]';
+		} else
+		{
+			$prod_shortcode = '['.$atts['type'].' per_page="'.$atts['items'].'" columns="'.$atts['columns'].'"]';
+		}		
+	}
+	
+	$return_string = '<div class="tx-prod-carousel" data-columns="'.$atts['columns'].'">'.do_shortcode( $prod_shortcode ).'</div>';
+
+   	return $return_string;
+}
+
+
+// recent posts [tx_blog items="3" colums="6" showcat="show" category_id="8,9"]
+
+function tx_slider_function($atts, $content = null) {
+	
+   	$atts = shortcode_atts(array(
+      	'items' => 4,
+      	'category' => '',
+		'delay' => 8000,
+      	'class' => '',								
+   	), $atts);
+	
+	$return_string = '';
+	$cat_slug = '';
+	
+	if(!empty($atts['category']))
+	{
+		$cat_slug = $atts['category'];
+	}
+
+	$posts_per_page = intval( $atts['items'] );
+	$tx_class = $atts['class'];
+	$tx_delay = $atts['delay'];
+	
+	
+	$return_string .= '<div class="tx-slider" data-delay="'.$tx_delay.'">';		
+	
+	
+	wp_reset_query();
+	global $post;
+	
+	$args = array(
+		'post_type' => 'itrans-slider',
+		'posts_per_page' => $posts_per_page,
+		'orderby' => 'date', 
+		'order' => 'DESC',
+		'ignore_sticky_posts' => 1,
+		'itrans-slider-category' => $cat_slug, //use post ids				
+	);
+
+	$full_image_url = '';
+	$large_image_url = '';
+	$image_url = '';
+	$width = 1200;
+	$height = 420;
+
+	query_posts( $args );
+   
+	if ( have_posts() ) : while ( have_posts() ) : the_post();
+	
+		$full_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+		$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );	
+		$image_url = tx_image_resize( $full_image_url[0], $width, $height, true, true );
+
+		$slide_link_text = rwmb_meta('tx_slide_link_text');
+		$show_link_url = rwmb_meta('tx_slide_link_url');		
+		
+		$return_string .= '<div class="tx-slider-item">';
+		$return_string .= '<div class="tx-slider-box">';
+		
+		if ( has_post_thumbnail() ) { 
+			$return_string .= '<div class="tx-slider-img"><a href="'.esc_url($large_image_url[0]).'" class="tx-colorbox">';
+			$return_string .= '<img src="'.esc_url($image_url["url"]).'" alt="" class="blog-image" /></a>';
+			$return_string .= '</div>';
+		} 
+		/**/
+		$return_string .= '<div class="tx-slide-content"><div class="tx-slide-content-inner">';
+		$return_string .= '<h3 class="tx-slide-title">'.get_the_title().'</h3>';		
+		$return_string .= '<div class="tx-slide-details"><p>'.tx_custom_excerpt(32).'</p></div>';
+		$return_string .= '<div class="tx-slide-button"><a href="'.esc_url( $show_link_url ).'">'.esc_attr( $slide_link_text ).'</a></div>';		
+		$return_string .= '</div></div></div></div>';		
+		
+		
+	endwhile; else :
+		$return_string .= '<p>Sorry, no slider matched your criteria. |'.$atts['category_id'].'|<pre>$post_in_cat</pre></p>';
+	endif;
+  
+   	$return_string .= '</div>';
 
    	wp_reset_query();
    	return $return_string;
 }
-
 
 
 function register_shortcodes(){
@@ -408,7 +599,10 @@ function register_shortcodes(){
 	add_shortcode('tx_services', 'tx_services_function');
 	add_shortcode('tx_portfolio', 'tx_portfolio_function');	
 	add_shortcode('tx_blog', 'tx_blog_function');
-	add_shortcode('tx_divider', 'tx_divider_function');					
+	add_shortcode('tx_divider', 'tx_divider_function');	
+	add_shortcode('tx_prodscroll', 'tx_prodscroll_function');
+	add_shortcode('tx_heading', 'tx_heading_function');
+	add_shortcode('tx_slider', 'tx_slider_function');								
 }
 
 add_action( 'init', 'register_shortcodes');

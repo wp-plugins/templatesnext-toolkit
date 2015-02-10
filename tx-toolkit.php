@@ -51,12 +51,38 @@ function tx_enqueue_color_picker( $hook_suffix ) {
 }
 
 
+// multiple featured image
+add_theme_support( 'post-thumbnails' );
+require_once('custom-post-types/multi-post-thumbnails.php'); /* Must be located directly under lib folder */
+    // Define additional "post thumbnails". Relies on MultiPostThumbnails to work
+if (class_exists('MultiPostThumbnails')) { 
+
+    $types = array('page', 'portfolio' ); /* 'landing_pages' adds support for landing pages CPT,  'post' adds support for blog single pages */
+    foreach($types as $type) {
+		new MultiPostThumbnails(array('label' => '2nd Feature Image', 'id' => 'feature-image-2', 'post_type' => $type)); 
+		new MultiPostThumbnails(array('label' => '3rd Feature Image', 'id' => 'feature-image-3', 'post_type' => $type));
+		//new MultiPostThumbnails(array('label' => '4th Feature Image', 'id' => 'feature-image-4', 'post_type' => $type));
+		//new MultiPostThumbnails(array('label' => '5th Feature Image', 'id' => 'feature-image-5', 'post_type' => $type));
+    }
+
+};
+
+// for thumb retrive https://github.com/voceconnect/multi-post-thumbnails/wiki
+
 
 //require_once('post-types.php');
 require_once('tx-functions.php');
 require_once('shortcodes.php');
 require_once('custom-post-types/testimonials-type.php');
 require_once('custom-post-types/portfolio-type.php');
+require_once('custom-post-types/itrans-slider.php');
+
+/*-----------------------------------------------------------------------------------*/
+/*	Metabox
+/*-----------------------------------------------------------------------------------*/ 
+
+require_once('/inc/tnext-meta.php');
+require_once('/inc/meta-box/meta-box.php');
 
 
 

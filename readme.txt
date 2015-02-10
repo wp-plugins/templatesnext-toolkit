@@ -26,5 +26,12 @@ Install the plugin into the `/wp-content/plugins/` folder, and activate it.
 == Changelog ==
 
 
+= 1.0.7 =
+* Added pagination for recent posts (blog) shortcode.
+* Added heading shortcode.
+* Added product carousel for WooCommerce.
+* Added Custom post type itrans slider.
+* Added itrans slider shortcode.
+
 = 1.0.1 =
 * Initial Version.

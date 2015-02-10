@@ -581,3 +581,9 @@ function tx_footer_include(){
 	//tx_footer=tx_footer.outerHTML;
     return tx_footer;
 }
+
+
+function tx_slider_cat(){	
+	var tx_slider_cat_list = tx_t1;
+	return tx_slider_cat_list;
+}	

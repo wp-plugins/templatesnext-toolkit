@@ -21,39 +21,30 @@
 		// you should achieve this using AJAX instead of direct html code like this
 		var form_tx = jQuery('<div id="txshortcodes-form"><div id="tx-shortcode-form"><table id="txshortcodes-table" class="form-table">\
 			<tr>\
-				<td class="tx-heading"><h2>TX Shortcodes</h2></td>\
+				<td class="tx-heading" colspan="2"><h2>TX Shortcodes</h2></td>\
 			</tr>\
 			<tr>\
-				<td class="shortcode-list"><span id="columns">Columns</span></td>\
+				<td class="shortcode-list" width="50%"><span id="columns">Columns</span></td><td class="shortcode-list"><span id="deviders">Divider</span></td>\
 			</tr>\
 			<tr>\
-				<td class="shortcode-list"><span id="deviders">Divider</span></td>\
+				<td class="shortcode-list"><span id="spacer">Spacer</span></td><td class="shortcode-list"><span id="testimonials">Testimonials</span></td>\
 			</tr>\
 			<tr>\
-				<td class="shortcode-list"><span id="spacer">Spacer</span></td>\
+				<td class="shortcode-list"><span id="buttons">Butons</span></td><td class="shortcode-list"><span id="calltoact">Call To Act</span></td>\
 			</tr>\
 			<tr>\
-				<td class="shortcode-list"><span id="testimonials">Testimonials</span></td>\
+				<td class="shortcode-list"><span id="services">Services</span></td><td class="shortcode-list"><span id="portfolios">Portfolios</span></td>\
 			</tr>\
 			<tr>\
-				<td class="shortcode-list"><span id="buttons">Butons</span></td>\
+				<td class="shortcode-list"><span id="recentposts">Recent Posts</span></td><td class="shortcode-list"><span id="heading">Heading</span></td>\
 			</tr>\
 			<tr>\
-				<td class="shortcode-list"><span id="calltoact">Call To Act</span></td>\
-			</tr>\
-			<tr>\
-				<td class="shortcode-list"><span id="services">Services</span></td>\
-			</tr>\
-			<tr>\
-				<td class="shortcode-list"><span id="portfolios">Portfolios</span></td>\
-			</tr>\
-			<tr>\
-				<td class="shortcode-list"><span id="recentposts">Recent Posts</span></td>\
+				<td class="shortcode-list"><span id="wooprods">Product Carousel <small>(WooCommerce)</small></span></td><td class="shortcode-list"><span id="itrans-slider">i-trans Slider</span></td>\
 			</tr>\
 		</table>\
-		<p class="submit">\
+		<div class="nx-sh-cancel">\
 			<input type="button" class="modal-close button-primary" value="Cancel" name="Cancel" />\
-		</p>\
+		</div>\
 		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
 		</div></div>');
 		
@@ -77,7 +68,14 @@
 			setTimeout(function() {
 				jQuery.colorbox({inline:true, href:"#tx-devider-form"});
 			}, 500);
-		});	
+		});
+		
+		//call Heding
+		form_tx.find('#heading').click(function(){			
+			setTimeout(function() {
+				jQuery.colorbox({inline:true, href:"#tx-heading-form"});
+			}, 500);
+		});			
 		
 		//call deviders
 		form_tx.find('#testimonials').click(function(){			
@@ -126,7 +124,21 @@
 			setTimeout(function() {
 				jQuery.colorbox({inline:true, href:"#tx-spacer-form"});
 			}, 500);
-		});						
+		});
+		
+		//Woocommerce Products
+		form_tx.find('#wooprods').click(function(){			
+			setTimeout(function() {
+				jQuery.colorbox({inline:true, href:"#tx-wooprods-form"});
+			}, 500);
+		});	
+		
+		//i-trans slider
+		form_tx.find('#itrans-slider').click(function(){			
+			setTimeout(function() {
+				jQuery.colorbox({inline:true, href:"#tx-slider-form"});
+			}, 500);
+		});										
 		
 		form_tx.find('.modal-close').click(function(){
 			jQuery.colorbox.close();
@@ -169,6 +181,15 @@
 				</td>\
 			</tr>\
 			<tr>\
+				<th><label for="portfolio-showpage">Show Pagination</label></th>\
+				<td><select name="showpage" id="portfolio-showpage">\
+					<option value="no">No</option>\
+					<option value="yes">Yes</option>\
+				</select><br />\
+				<small>Pagination will not work with carousel</small>\
+				</td>\
+			</tr>\
+			<tr>\
 				<th><label for="portfolio-carusel">Show as carousel</label></th>\
 				<td><select name="carusel" id="portfolio-carusel">\
 					<option value="no">No</option>\
@@ -198,10 +219,11 @@
 			var number_of_column = table.find('#portfolio-columns').val(); 
 			var hide_cat = table.find('#portfolio-hidecat').val();
 			var hide_excerpt = table.find('#portfolio-hideexcerpt').val();
+			var show_page = table.find('#portfolio-showpage').val();			
 			var show_carusel = table.find('#portfolio-carusel').val(); 			
 			
 			
-			var shortcode = '[tx_portfolio items="'+number_of_item+'" columns="'+number_of_column+'" hide_cat="'+hide_cat+'" hide_excerpt="'+hide_excerpt+'" carousel="'+show_carusel+'"]<br/>';
+			var shortcode = '[tx_portfolio items="'+number_of_item+'" columns="'+number_of_column+'" hide_cat="'+hide_cat+'" hide_excerpt="'+hide_excerpt+'" show_pagination="'+show_page+'" carousel="'+show_carusel+'"]<br/>';
 			
 			// inserts the shortcode into the active editor
 			tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
@@ -254,6 +276,15 @@
 				</td>\
 			</tr>\
 			<tr>\
+				<th><label for="blog-showpage">Show Pagination</label></th>\
+				<td><select name="showpage" id="blog-showpage">\
+					<option value="no">No</option>\
+					<option value="yes">Yes</option>\
+				</select><br />\
+				<small>Pagination will not work with carousel</small>\
+				</td>\
+			</tr>\
+			<tr>\
 				<th><label for="blog-carusel">Show as carousel</label></th>\
 				<td><select name="carusel" id="blog-carusel">\
 					<option value="no">No</option>\
@@ -283,9 +314,10 @@
 			var number_of_column = table.find('#blog-columns').val();
 			var show_hide_cat = table.find('#blog-hidecat').val();
 			var category_id = table.find('#blog-ids').val();
+			var show_page = table.find('#blog-showpage').val();			
 			var show_carusel = table.find('#blog-carusel').val(); 			
 			
-			var shortcode = '[tx_blog items="'+number_of_item+'" columns="'+number_of_column+'" showcat="'+show_hide_cat+'" category_id="'+category_id+'" carousel="'+show_carusel+'"]<br/>';
+			var shortcode = '[tx_blog items="'+number_of_item+'" columns="'+number_of_column+'" showcat="'+show_hide_cat+'" category_id="'+category_id+'" show_pagination="'+show_page+'" carousel="'+show_carusel+'"]<br/>';
 			
 			// inserts the shortcode into the active editor
 			tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
@@ -362,6 +394,97 @@
 		});	
 			
 	});	
+	
+	
+	/*
+	* heading form
+	*/
+	jQuery(function(){
+		// creates a form to be displayed everytime the button is clicked
+		// you should achieve this using AJAX instead of direct html code like this
+		var form_heading = jQuery('<div id="heading-form" class="tx-sh-form"><div id="tx-heading-form"><table id="heading-table" class="form-table">\
+			<tr>\
+				<td class="tx-heading" colspan="2"><h2>Heading</h2></td>\
+			</tr>\
+			<tr>\
+				<th><label for="heading-style">Heading Style</label></th>\
+				<td><select name="style" id="heading-style">\
+					<option value="default">Default</option>\
+				</select><br />\
+				<small>Select the heading style</small></td>\
+			</tr>\
+			<tr>\
+				<th><label for="heading-text">Heading Text</label></th>\
+				<td><input type="text" name="text" id="heading-text" value="Heading Text" /><br />\
+				<small>Specify the heading text.</small>\
+			</tr>\
+			<tr>\
+				<th><label for="heading-tag">Heading Tag</label></th>\
+				<td><select name="tag" id="heading-tag">\
+					<option value="h1">H1</option>\
+					<option value="h2" selected>H2</option>\
+					<option value="h3">H3</option>\
+					<option value="h4">H4</option>\
+					<option value="h5">H5</option>\
+					<option value="h6">H6</option>\
+				</select><br />\
+				<small>Select the Heading tag.</small></td>\
+			</tr>\
+			<tr>\
+				<th><label for="heading-align">Text Alignment</label></th>\
+				<td><select name="align" id="heading-align">\
+					<option value="left">Left</option>\
+					<option value="center">Center</option>\
+					<option value="right">right</option>\
+				</select><br />\
+				<small>Select heading text alignment</small></td>\
+			</tr>\
+			<tr>\
+				<th><label for="heading-size">Heading Size</label></th>\
+				<td><input type="number" name="size" id="heading-size" min="0" max="120" value="24" /><br />\
+				<small>Heading font size in px</small>\
+			</tr>\
+			<tr>\
+				<th><label for="heading-margin">Heading Margin</label></th>\
+				<td><input type="number" name="margin" id="heading-margin" min="0" max="120" value="24" /><br />\
+				<small>Heading bottom margin in px</small>\
+			</tr>\
+		</table>\
+		<p class="submit">\
+			<input type="button" id="heading-submit" class="button-primary" value="Insert Heading" name="submit" />\
+			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
+		</p>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
+		</div></div>');
+		
+		var table = form_heading.find('#heading-table');
+		form_heading.appendTo('body').hide();
+		
+		// handles the click event of the submit button
+		form_heading.find('#heading-submit').click(function(){
+			
+			var style = table.find('#heading-style').val();
+			var heading_text = table.find('#heading-text').val();			
+			var tag = table.find('#heading-tag').val();
+			var size = table.find('#heading-size').val();
+			var margin = table.find('#heading-margin').val();
+			var align = table.find('#heading-align').val();			
+													
+			var shortcode = '[tx_heading style="'+style+'" heading_text="'+heading_text+'" tag="'+tag+'" size="'+size+'" margin="'+margin+'" align="'+align+'"]<br/>';
+			
+			// inserts the shortcode into the active editor
+			tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+			
+			// closes Thickbox
+			jQuery.colorbox.close();
+		});
+
+		form_heading.find('#modal-close').click(function(){
+			jQuery.colorbox.close();
+		});	
+			
+	});	
+		
 	
 	
 	/*
@@ -701,7 +824,145 @@
 			jQuery.colorbox.close();
 		});	
 			
-	});		
+	});	
+	
+	
+	/*
+	* wooproducts form
+	*/
+	jQuery(function(){
+		var form_wooprods = jQuery('<div id="wooprods-form" class="tx-sh-form"><div id="tx-wooprods-form"><table id="wooprods-table" class="form-table">\
+			<tr>\
+				<td class="tx-heading" colspan="2"><h2>WooCommerce Products Carousel</h2></td>\
+			</tr>\
+			<tr>\
+				<th><label for="wooprods-type">Product Listing Type</label></th>\
+				<td><select name="style" id="wooprods-type">\
+					<option value="product_categories">Product Categories</option>\
+					<option value="recent_products">Recent Products</option>\
+					<option value="featured_products">Featured Products</option>\
+					<option value="sale_products">Products On Sale</option>\
+					<option value="best_selling_products">Best Selling Products</option>\
+					<option value="top_rated_products">Top Rated Products</option>\
+					<option value="products">Products By Ids</option>\
+				</select><br />\
+				<small>Specify product listing type</small></td>\
+			</tr>\
+			<tr>\
+				<th><label for="wooprods-ids">Category/Product Ids (optional)</label></th>\
+				<td><input type="text" name="ids" id="wooprods-ids" value="" /><br />\
+				<small>Comma separeted category or product ids (works with "Product Categories" and "Products By Ids" )</small>\
+			</tr>\
+			<tr>\
+				<th><label for="wooprods-columns">Number Of Columns</label></th>\
+				<td><input type="number" min="1" max="4" name="coumns" id="wooprods-columns" value="4" /><br />\
+				<small>Number of columns or items visible</small>\
+			</tr>\
+			<tr>\
+				<th><label for="wooprods-items">Number Of Items</label></th>\
+				<td><input type="number" min="1" max="16" name="items" id="wooprods-items" value="8" /><br />\
+				<small>Total number of items</small>\
+			</tr>\
+        </table>\
+		<div class="nx-sh-cancel">\
+			<input type="button" id="wooprods-submit" class="button-primary" value="Insert Wooprods" name="submit" />\
+			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
+		</div>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
+		</div></div>');
+		
+		var table = form_wooprods.find('#wooprods-table');
+		form_wooprods.appendTo('body').hide();
+		
+		// handles the click event of the submit button
+		form_wooprods.find('#wooprods-submit').click(function(){
+			
+			var wooprods_type = table.find('#wooprods-type').val();
+			var wooprods_ids = table.find('#wooprods-ids').val();
+			var wooprods_columns = table.find('#wooprods-columns').val();			
+			var wooprods_items = table.find('#wooprods-items').val(); 
+				
+			var shortcode = '[tx_prodscroll type="'+wooprods_type+'" ids="'+wooprods_ids+'" columns="'+wooprods_columns+'" items="'+wooprods_items+'"]<br/>';
+			
+			// inserts the shortcode into the active editor
+			tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+			
+			// closes Thickbox
+			jQuery.colorbox.close();
+		});
+
+		form_wooprods.find('#modal-close').click(function(){
+			jQuery.colorbox.close();
+		});	
+			
+	});	
+	
+	
+	/*
+	* Slider
+	*/
+	jQuery(function(){
+		var form_slider = jQuery('<div id="slider-form" class="tx-sh-form"><div id="tx-slider-form"><table id="slider-table" class="form-table">\
+			<tr>\
+				<td class="tx-heading" colspan="2"><h2>i-trans Slider</h2></td>\
+			</tr>\
+			<tr>\
+				<th><label for="slider-style">Slider Style</label></th>\
+				<td><select name="style" id="slider-style">\
+					<option value="default">Default</option>\
+				</select><br />\
+				<small>Select slider style</small></td>\
+			</tr>\
+			<tr>\
+				<th><label for="slider-category">Slider Category</label></th>\
+				<td><select name="category" id="slider-category">\
+					<option value="">All</option>'+tx_slider_cat()+'\
+				</select><br />\
+				<small>Select slider category for category based multiple slider(optional)</small></td>\
+			</tr>\
+			<tr>\
+				<th><label for="slider-items">Number Of Items (slides)</label></th>\
+				<td><input type="number" min="1" max="16" name="items" id="slider-items" value="4" /><br />\
+				<small>Number of slides in the slider</small>\
+			</tr>\
+			<tr>\
+				<th><label for="slider-delay">Delay</label></th>\
+				<td><input type="number" min="1000" max="16000" name="delay" step="500" id="slider-delay" value="8000" /><br />\
+				<small>Duration between slides in miliseconds</small>\
+			</tr>\
+        </table>\
+		<div class="nx-sh-cancel">\
+			<input type="button" id="slider-submit" class="button-primary" value="Insert Slider" name="submit" />\
+			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
+		</div>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
+		</div></div>');
+		
+		var table = form_slider.find('#slider-table');
+		form_slider.appendTo('body').hide();
+		
+		// handles the click event of the submit button
+		form_slider.find('#slider-submit').click(function(){
+			
+			var style = table.find('#slider-style').val();
+			var category = table.find('#slider-category').val();
+			var slider_items = table.find('#slider-items').val();			
+			var slider_delay = table.find('#slider-delay').val(); 
+				
+			var shortcode = '[tx_slider style="'+style+'" category="'+category+'" delay="'+slider_delay+'" items="'+slider_items+'"]<br/>';
+			
+			// inserts the shortcode into the active editor
+			tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+			
+			// closes Thickbox
+			jQuery.colorbox.close();
+		});
+
+		form_slider.find('#modal-close').click(function(){
+			jQuery.colorbox.close();
+		});	
+			
+	});			
 			
 	
 
