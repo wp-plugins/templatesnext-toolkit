@@ -25,6 +25,9 @@ Install the plugin into the `/wp-content/plugins/` folder, and activate it.
 
 == Changelog ==
 
+= 1.0.9 =
+* CSS fix for mobile devices.
+* Portfolio on image link added.
 
 = 1.0.7 =
 * Added pagination for recent posts (blog) shortcode.

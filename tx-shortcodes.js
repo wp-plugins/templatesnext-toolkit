@@ -36,7 +36,7 @@
 				<td class="shortcode-list"><span id="services">Services</span></td><td class="shortcode-list"><span id="portfolios">Portfolios</span></td>\
 			</tr>\
 			<tr>\
-				<td class="shortcode-list"><span id="recentposts">Recent Posts</span></td><td class="shortcode-list"><span id="heading">Heading</span></td>\
+				<td class="shortcode-list"><span id="recentposts">Posts</span></td><td class="shortcode-list"><span id="heading">Heading</span></td>\
 			</tr>\
 			<tr>\
 				<td class="shortcode-list"><span id="wooprods">Product Carousel <small>(WooCommerce)</small></span></td><td class="shortcode-list"><span id="itrans-slider">i-trans Slider</span></td>\
@@ -250,7 +250,7 @@
 		// you should achieve this using AJAX instead of direct html code like this
 		var form_blog = jQuery('<div id="blog-form" class="tx-sh-form"><div id="tx-blog-form"><table id="blog-table" class="form-table">\
 			<tr>\
-				<td class="tx-heading" colspan="2"><h2>Recent Posts</h2></td>\
+				<td class="tx-heading" colspan="2"><h2>Posts</h2></td>\
 			</tr>\
 			<tr>\
 				<th><label for="blog-ids">Category Id (optional)</label></th>\

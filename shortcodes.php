@@ -95,7 +95,11 @@ function tx_blog_function($atts, $content = null) {
 		if ( has_post_thumbnail() ) { 
 			$return_string .= '<div class="tx-blog-img"><a href="'.esc_url($full_image_url[0]).'" class="tx-colorbox">';
 			$return_string .= '<img src="'.esc_url($large_image_url[0]).'" alt="" class="blog-image" /></a></div>';
-		} 
+		} else
+		{
+			$return_string .= '<div class="tx-blog-imgpad"></div>';
+		}
+		
 		$return_string .= '<div class="tx-post-content"><h3 class="tx-post-title"><a href="'.get_permalink().'">'.get_the_title().'</a></h3>';
 		if ( $tx_category == "show" )
 		{
@@ -429,7 +433,13 @@ function tx_portfolio_function($atts, $content = null) {
 		
 
 		if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
-			$return_string .= '<div class="tx-folio-img"><a href="'.esc_url($full_image_url[0]).'" class="tx-colorbox"><img src="'.esc_url($large_image_url[0]).'" alt="" class="folio-img" /></a></div>';
+			$return_string .= '<div class="tx-folio-img">';
+			$return_string .= '<div class="tx-folio-img-wrap"><img src="'.esc_url($large_image_url[0]).'" alt="" class="folio-img" /></div>';
+			$return_string .= '<div class="folio-links">';	
+			$return_string .= '<a href="'.esc_url(get_permalink()).'" class="folio-linkico"><i class="fa fa-link"></i></a>';	
+			$return_string .= '<a href="'.esc_url($full_image_url[0]).'" class="tx-colorbox folio-zoomico"><i class="fa fa-search-plus"></i></a>';										
+			$return_string .= '</div>';			
+			$return_string .= '</div>';			
 		} 
 
 		$return_string .= '<h3 class="tx-folio-title"><a href="'.get_permalink().'">'.get_the_title().'</a></h3>';
