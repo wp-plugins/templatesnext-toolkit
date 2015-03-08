@@ -40,6 +40,7 @@ function tx_blog_function($atts, $content = null) {
    	), $atts);
 	
 	$post_in_cat = tx_shortcodes_comma_delim_to_array( $atts['category_id'] );
+	$post_comments = '';
 
 	$posts_per_page = intval( $atts['items'] );
 	$total_column = intval( $atts['columns'] );
@@ -80,6 +81,8 @@ function tx_blog_function($atts, $content = null) {
    
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
 	
+		$post_comments = get_comments_number();
+	
 		if (in_array("tx-medium", get_intermediate_image_sizes())) {
 			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'tx-medium' );
 		} else
@@ -94,7 +97,7 @@ function tx_blog_function($atts, $content = null) {
 
 		if ( has_post_thumbnail() ) { 
 			$return_string .= '<div class="tx-blog-img"><a href="'.esc_url($full_image_url[0]).'" class="tx-colorbox">';
-			$return_string .= '<img src="'.esc_url($large_image_url[0]).'" alt="" class="blog-image" /></a></div>';
+			$return_string .= '<img src="'.esc_url($large_image_url[0]).'" alt="" class="blog-image" /></a><span class="tx-post-comm"><span>'.$post_comments.'</span></span></div>';
 		} else
 		{
 			$return_string .= '<div class="tx-blog-imgpad"></div>';
@@ -275,16 +278,14 @@ function tx_testimonial_function($atts, $content = null) {
 		'orderby' => 'date', 
 		'order' => 'DESC'
 	);
-	//$args['paging'] = true;
-	/**/
+
 	query_posts( $args );   
    
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
 	
-		$testi_name = esc_attr(rwmb_meta('icreate_testi_name'));
-		$testi_desig = esc_attr(rwmb_meta('icreate_testi_desig'));
-		$testi_organ = esc_attr(rwmb_meta('icreate_testi_company'));				
-
+		$testi_name = esc_attr(rwmb_meta('tx_testi_name'));
+		$testi_desig = esc_attr(rwmb_meta('tx_testi_desig'));
+		$testi_organ = esc_attr(rwmb_meta('tx_testi_company'));				
 	
 		$return_string .= '<div class="tx-testi-item">';
 		$return_string .= '<span class="tx-testi-text">'.get_the_content().'</span>';
@@ -349,18 +350,22 @@ function tx_calltoact_function($atts, $content = null) {
 function tx_services_function($atts, $content = null) {
 	
    	$atts = shortcode_atts(array(
+      	'style' => 'default',	
       	'title' => '',
 		'icon' => '',
 		'class' => '',
    	), $atts);
 	
+	$style_class = '';
+	
 	$service_text = do_shortcode($content);
 	$service_icon = esc_attr($atts['icon']);
 	$service_title = esc_attr($atts['title']);
+	$style_class = $atts['style'];
 	
 	$return_string ='';
 	
-   	$return_string .= '<div class="tx-service" style="">';
+   	$return_string .= '<div class="tx-service '.$style_class.'" style="">';
 	$return_string .= '<div class="tx-service-icon"><span><i class="fa '.$service_icon.'"></i></span></div>';
 	$return_string .= '<div class="tx-service-title">'.$service_title.'</div>';
 	$return_string .= '<div class="tx-service-text">'.$service_text.'</div>';		
@@ -374,6 +379,7 @@ function tx_services_function($atts, $content = null) {
 function tx_portfolio_function($atts, $content = null) {
 	
    	$atts = shortcode_atts(array(
+      	'style' => 'default',
       	'items' => 4,
       	'columns' => 4,
 		'hide_cat' => 'no',
@@ -383,15 +389,21 @@ function tx_portfolio_function($atts, $content = null) {
    	), $atts);
 	
    
+   	$style_class = '';
    	$posts_per_page = intval( $atts['items'] );
    	$total_column = intval( $atts['columns'] );
 	$tx_carousel = $atts['carousel'];
+	
+	if ( $atts['style'] == 'gallery' )
+	{
+		$style_class = 'folio-style-gallery';
+	}
 
 	
 	$return_string = '';
 
 	if( $tx_carousel == 'no' ) {
-   		$return_string .= '<div class="tx-portfolio tx-post-row tx-masonry">';
+   		$return_string .= '<div class="tx-portfolio tx-post-row tx-masonry '.$style_class.'">';
 	} else
 	{
    		$return_string .= '<div class="tx-portfolio tx-post-row tx-carousel" data-columns="'.$total_column.'">';		
@@ -435,13 +447,14 @@ function tx_portfolio_function($atts, $content = null) {
 		if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
 			$return_string .= '<div class="tx-folio-img">';
 			$return_string .= '<div class="tx-folio-img-wrap"><img src="'.esc_url($large_image_url[0]).'" alt="" class="folio-img" /></div>';
-			$return_string .= '<div class="folio-links">';	
+			$return_string .= '<div class="folio-links"><span>';	
 			$return_string .= '<a href="'.esc_url(get_permalink()).'" class="folio-linkico"><i class="fa fa-link"></i></a>';	
 			$return_string .= '<a href="'.esc_url($full_image_url[0]).'" class="tx-colorbox folio-zoomico"><i class="fa fa-search-plus"></i></a>';										
-			$return_string .= '</div>';			
+			$return_string .= '</span></div>';			
 			$return_string .= '</div>';			
 		} 
 
+		$return_string .= '<span class="folio-head">';
 		$return_string .= '<h3 class="tx-folio-title"><a href="'.get_permalink().'">'.get_the_title().'</a></h3>';
 		if ( $atts['hide_cat'] == 'no' ) { // check if the post has a Post Thumbnail assigned to it.
 			$return_string .= '<div class="tx-folio-category">'.tx_folio_term( 'portfolio-category' ).'</div>';
@@ -449,7 +462,8 @@ function tx_portfolio_function($atts, $content = null) {
 		{
 			$return_string .= '<div style="display: block; clear: both; height: 16px;"></div>';
 		}
-		if ( $atts['hide_excerpt'] == 'no' ) { // check if the post has a Post Thumbnail assigned to it.
+		$return_string .= '</span>';
+		if ( $atts['hide_excerpt'] == 'no' && $atts['style'] != 'gallery' ) { // check if the post has a Post Thumbnail assigned to it.
 			$return_string .= '<div class="tx-folio-content">'.get_the_excerpt().'</div>';
 		}
 			
@@ -598,7 +612,7 @@ function tx_slider_function($atts, $content = null) {
 }
 
 
-function register_shortcodes(){
+function tx_register_shortcodes(){
 	add_shortcode('tx_recentposts', 'tx_recentposts_function');
 	add_shortcode('tx_row', 'tx_row_function');
 	add_shortcode('tx_column', 'tx_column_function');
@@ -615,7 +629,7 @@ function register_shortcodes(){
 	add_shortcode('tx_slider', 'tx_slider_function');								
 }
 
-add_action( 'init', 'register_shortcodes');
+add_action( 'init', 'tx_register_shortcodes');
 
 
 

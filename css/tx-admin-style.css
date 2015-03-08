@@ -132,11 +132,31 @@ ul.tx-fa-icons > li.active {
 #tx-spacer-form,
 #tx-wooprods-form,
 #tx-heading-form,
-#tx-slider-form {
+#tx-slider-form,
+#tx-image-form {
 	padding: 12px 16px;
 	min-width: 480px;	
 }
 
 .nx-sh-cancel {
 	padding-top: 16px;
+}
+
+.tx-button {
+	background: transparent;
+	border: 1px solid #cccccc;
+	background-color: #e7e7e7;
+	font-size: 12px;
+	line-height: 1;
+	padding: 8px 16px;
+	color: #373737;
+	font-weight: 500;
+	margin-top: 4px;
+	cursor: pointer;
+}
+
+.tx-button:hover {
+	border: 1px solid #373737;
+	background-color: #373737;
+	color: #FFFFFF;
 }

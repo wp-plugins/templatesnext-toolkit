@@ -41,6 +41,9 @@
 			<tr>\
 				<td class="shortcode-list"><span id="wooprods">Product Carousel <small>(WooCommerce)</small></span></td><td class="shortcode-list"><span id="itrans-slider">i-trans Slider</span></td>\
 			</tr>\
+			<!-- <tr>\
+				<td class="shortcode-list"><span id="tximage">Image</small></span></td><td class="shortcode-list">&nbsp;</td>\
+			</tr> -->\
 		</table>\
 		<div class="nx-sh-cancel">\
 			<input type="button" class="modal-close button-primary" value="Cancel" name="Cancel" />\
@@ -138,7 +141,14 @@
 			setTimeout(function() {
 				jQuery.colorbox({inline:true, href:"#tx-slider-form"});
 			}, 500);
-		});										
+		});	
+
+		//Insert Image
+		form_tx.find('#tximage').click(function(){			
+			setTimeout(function() {
+				jQuery.colorbox({inline:true, href:"#tx-image-form"});
+			}, 500);
+		});												
 		
 		form_tx.find('.modal-close').click(function(){
 			jQuery.colorbox.close();
@@ -153,6 +163,14 @@
 		var form_portfolio = jQuery('<div id="portfolio-form"><div id="tx-portfolio-form"><table id="portfolio-table" class="form-table">\
 			<tr>\
 				<td class="tx-heading" colspan="2"><h2>Portfolio</h2></td>\
+			</tr>\
+			<tr>\
+				<th><label for="portfolio-style">Portfolio Style</label></th>\
+				<td><select name="style" id="portfolio-style">\
+					<option value="default">Default</option>\
+					<option value="gallery">Gallery</option>\
+				</select><br />\
+				<small>Specify the portfolio style, "Gallery" style will not work with carousel.</small></td>\
 			</tr>\
 			<tr>\
 				<th><label for="portfolio-items">Number of item</label></th>\
@@ -215,6 +233,7 @@
 		// handles the click event of the submit button
 		form_portfolio.find('#portfolio-submit').click(function(){
 
+			var portfolio_style = table.find('#portfolio-style').val(); 
 			var number_of_item = table.find('#portfolio-items').val(); 
 			var number_of_column = table.find('#portfolio-columns').val(); 
 			var hide_cat = table.find('#portfolio-hidecat').val();
@@ -223,7 +242,7 @@
 			var show_carusel = table.find('#portfolio-carusel').val(); 			
 			
 			
-			var shortcode = '[tx_portfolio items="'+number_of_item+'" columns="'+number_of_column+'" hide_cat="'+hide_cat+'" hide_excerpt="'+hide_excerpt+'" show_pagination="'+show_page+'" carousel="'+show_carusel+'"]<br/>';
+			var shortcode = '[tx_portfolio style="'+portfolio_style+'" items="'+number_of_item+'" columns="'+number_of_column+'" hide_cat="'+hide_cat+'" hide_excerpt="'+hide_excerpt+'" show_pagination="'+show_page+'" carousel="'+show_carusel+'"]<br/>';
 			
 			// inserts the shortcode into the active editor
 			tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
@@ -727,6 +746,15 @@
 				<td class="tx-heading" colspan="2"><h2>Services</h2></td>\
 			</tr>\
 			<tr>\
+				<th><label for="services-style">Services Style</label></th>\
+				<td><select name="style" id="services-style">\
+					<option value="default">Default (Circle)</option>\
+					<option value="curved">Curved Corner</option>\
+					<option value="square">Square</option>\
+				</select><br />\
+				<small>Specify the services style</small></td>\
+			</tr>\
+			<tr>\
 				<th><label for="services-title">Services Title</label></th>\
 				<td><input type="text" name="title" id="services-title" value="Services Title" /><br />\
 				<small>Specify the Call toa ct text.</small>\
@@ -742,7 +770,7 @@
 			</tr>\
 		</table>\
 		<p class="submit">\
-			<input type="button" id="button-submit" class="button-primary" value="Insert Call to act" name="submit" />\
+			<input type="button" id="button-submit" class="button-primary" value="Insert Services" name="submit" />\
 			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
 		</p>\
 		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
@@ -755,11 +783,12 @@
 		// handles the click event of the submit button
 		form_services.find('#button-submit').click(function(){
 			
+			var services_style = table.find('#services-style').val();
 			var services_title = table.find('#services-title').val();
 			var services_icon = table.find('#services-icon').val();
 			var services_content = table.find('#services-content').val();
 	 	
-			var shortcode = '[tx_services title="'+services_title+'" icon="'+services_icon+'"]'+services_content+'[/tx_services]';
+			var shortcode = '[tx_services style="'+services_style+'" title="'+services_title+'" icon="'+services_icon+'"]'+services_content+'[/tx_services]';
 			
 			// inserts the shortcode into the active editor
 			tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
@@ -962,11 +991,107 @@
 			jQuery.colorbox.close();
 		});	
 			
-	});			
+	});
+	
+	
+	/*
+	* image form
+	*/
+	jQuery(function(){
+		var form_image = jQuery('<div id="image-form" class="tx-sh-form"><div id="tx-image-form"><table id="image-table" class="form-table">\
+			<tr>\
+				<td class="tx-heading" colspan="2"><h2>Insert Image</h2></td>\
+			</tr>\
+			<tr>\
+				<th><label for="image-width">Image Width</label></th>\
+				<td><input type="number" min="60" max="1200" name="width" id="image-width" value="600" /><br />\
+			</tr>\
+			<tr>\
+				<th><label for="image-height">Image Height</label></th>\
+				<td><input type="number" min="60" max="1200" name="height" id="image-height" value="600" /><br />\
+			</tr>\
+			<tr>\
+				<th><label for="image-alt">Alternate Text</label></th>\
+				<td><input type="text" name="alttext" id="image-alt" /><br />\
+			</tr>\
+			<tr>\
+				<th><label for="image-url">Image URL</label></th>\
+				<td><input type="text" name="url" id="image-url" /><br />\
+				<input type="button" class="tx-button" name="tx-img-upload" id="tx-upload-button" value="Upload Image">\
+			</tr>\
+        </table>\
+		<p class="submit">\
+			<input type="button" id="image-submit" class="button-primary" value="Insert Image" name="submit" />\
+			<input type="button" id="modal-close" class="modal-close button-primary" value="Cancel" name="Cancel" />\
+		</p>\
+		<div class="tnext-bottom-lebel">'+tx_footer_include()+'</div>\
+		</div></div>');
+		
+		var table = form_image.find('#image-table');
+		form_image.appendTo('body').hide();
+		
+		// handles the click event of the submit button
+		form_image.find('#image-submit').click(function(){
+			
+			var image_width = table.find('#image-width').val(); 
+			var image_height = table.find('#image-height').val(); 			
+			var image_url = table.find('#image-url').val();
+			
+			var shortcode = '[tx_image width="'+image_width+'" height="'+image_height+'" url="'+image_url+'"]<br/>';
+			
+			// inserts the shortcode into the active editor
+			tinyMCE.activeEditor.execCommand('mceInsertContent', 0, shortcode);
+			
+			// closes Thickbox
+			jQuery.colorbox.close();
+		});
+		
+		var file_frame;
+		
+		form_image.find('#tx-upload-button').click(function(event){
+
+			event.preventDefault();
+		
+			// If the media frame already exists, reopen it.
+			if ( file_frame ) {
+			  file_frame.open();
+			  return;
+			}
+		
+			// Create the media frame.
+			file_frame = wp.media.frames.file_frame = wp.media({
+			  title: jQuery( this ).data( 'uploader_title' ),
+			  button: {
+				text: jQuery( this ).data( 'uploader_button_text' ),
+			  },
+			  multiple: false  // Set to true to allow multiple files to be selected
+			});
+		
+			// When an image is selected, run a callback.
+			file_frame.on( 'select', function() {
+			  // We set multiple to false so only get one image from the uploader
+			  attachment = file_frame.state().get('selection').first().toJSON();
+		
+			  // Do something with attachment.id and/or attachment.url here
+			  table.find('#image-url').val(attachment.url); 	
+			  
+			});
+		
+			// Finally, open the modal
+			file_frame.open();
+
+			
+		});			
+
+		form_image.find('#modal-close').click(function(){
+			jQuery.colorbox.close();
+		});	
+			
+	});
 			
 	
 
-})()
+})();
 
 
 jQuery(window).resize( function() {

@@ -3,7 +3,7 @@
 /*
 Plugin Name: TemplatesNext ToolKit
 Description: Custom Portfolio and Shortcode functionality for TemplatesNext Wordpress Themes
-Version: 1.1.0
+Version: 1.1.1
 Author: TemplatesNext
 Author URI: http://templatesnext.org/
 License: GPLv2 or later
@@ -57,7 +57,7 @@ require_once('custom-post-types/multi-post-thumbnails.php'); /* Must be located 
     // Define additional "post thumbnails". Relies on MultiPostThumbnails to work
 if (class_exists('MultiPostThumbnails')) { 
 
-    $types = array('page', 'portfolio' ); /* 'landing_pages' adds support for landing pages CPT,  'post' adds support for blog single pages */
+    $types = array('portfolio' ); /* 'landing_pages' adds support for landing pages CPT,  'post' adds support for blog single pages */
     foreach($types as $type) {
 		new MultiPostThumbnails(array('label' => '2nd Feature Image', 'id' => 'feature-image-2', 'post_type' => $type)); 
 		new MultiPostThumbnails(array('label' => '3rd Feature Image', 'id' => 'feature-image-3', 'post_type' => $type));
@@ -76,6 +76,19 @@ require_once('shortcodes.php');
 require_once('custom-post-types/testimonials-type.php');
 require_once('custom-post-types/portfolio-type.php');
 require_once('custom-post-types/itrans-slider.php');
+
+
+/*-----------------------------------------------------------------------------------*/
+/*	Loading Widgets  */
+/*-----------------------------------------------------------------------------------*/ 
+
+require_once('inc/widgets/widget-posts.php');
+//require_once('inc/widgets/widget-portfolio.php');
+require_once('inc/widgets/widget-portfolio-grid.php');
+require_once('inc/widgets/widget-advertgrid.php');
+require_once('inc/widgets/widget-comments.php');
+require_once('inc/widgets/widget-image.php');
+
 
 /*-----------------------------------------------------------------------------------*/
 /*	Metabox

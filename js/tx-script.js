@@ -2,6 +2,14 @@ jQuery(document).ready(function ($) {
 	
 		"use strict";
 		
+	var $window = jQuery(window),
+		body = jQuery('body'),
+		//windowheight = page.getViewportHeight(),
+		sitewidth = $('.site').width(),
+		maxwidth = $('.site-main').width(),		
+		windowheight = $window.height(),
+		pageheight = $( document ).height(),		
+		windowwidth = $window.width();		
 	
 	
 	//client carousel
@@ -138,6 +146,70 @@ jQuery(document).ready(function ($) {
 		});	
 	});
 	*/
+	
+	
+	/////////////////////////////////////////////
+	// Forcing Wide
+	/////////////////////////////////////////////	
+
+	$.fn.widify = function() {
+		
+		this.each( function() {
+			var _this = $(this);
+			var fwheight = $(this).children('div').outerHeight();
+			var extrawidth = (sitewidth-maxwidth)/2+32;
+			
+			if(sitewidth > 1200)	
+			{
+				_this.wrapInner( "<div class='tx-fullwidthinner'></div>" );
+
+				_this.css({"overflow":"visible"});
+				_this.children('.tx-fullwidthinner').css({"width":sitewidth+"px","position":"relative","margin-left":"-"+extrawidth+"px","overflow":"hidden"});
+				
+				//console.log ("yo max width : "+maxwidth+" sitewidth : "+sitewidth+" left: "+extrawidth);				
+				
+			}
+		
+
+			$(window).resize(function() {
+				//console.log("resized : "+$('.site').width()+",  Site width : "+sitewidth+", max width : "+maxwidth);
+				maxwidth = $('.site-main').width();
+				sitewidth = $('.site').width();
+				extrawidth = (sitewidth-maxwidth)/2+32;
+				
+				if(sitewidth > 1200) {
+					
+					if(!_this.children('div').hasClass('tx-fullwidthinner'))
+					{
+						_this.wrapInner( "<div style='position: relative; overflow: hidden;' class='tx-fullwidthinner'></div>" );
+						console.log("added");
+					}					
+					
+					_this.css({"overflow":"visible"});
+					_this.children('.tx-fullwidthinner').css({"width":sitewidth+"px","position":"relative","margin-left":"-"+extrawidth+"px"});				
+				} else
+				{
+					
+					if(_this.children('div').hasClass('tx-fullwidthinner'))
+					{
+						_this.children('.tx-fullwidthinner').children().unwrap();
+					}	
+					_this.css({"height":"auto","overflow":"hidden"});
+					console.log("should be here");		
+				}
+				
+			});				
+		
+		});	
+    };
+
+	// forcing wide
+	$('.tx-fullwidthrow').each(function () {
+		if( $('body.tx-boxed').length < 1 && $('.has-left-sidebar').length < 1 && $('.has-right-sidebar').length < 1 )
+		{
+			$(this).widify();
+		}		
+	});	
 	
 	
 
