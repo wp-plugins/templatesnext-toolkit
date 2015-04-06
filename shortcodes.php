@@ -39,6 +39,10 @@ function tx_blog_function($atts, $content = null) {
       	'carousel' => 'no',								
    	), $atts);
 	
+	
+	$width = 600;
+	$height = 360;
+	
 	$post_in_cat = tx_shortcodes_comma_delim_to_array( $atts['category_id'] );
 	$post_comments = '';
 
@@ -82,22 +86,17 @@ function tx_blog_function($atts, $content = null) {
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
 	
 		$post_comments = get_comments_number();
-	
-		if (in_array("tx-medium", get_intermediate_image_sizes())) {
-			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'tx-medium' );
-		} else
-		{
-			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
-		}	
+			
 		$full_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
-		
 
-		
+		$thumb_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+		$thumb_image_url = aq_resize( $thumb_image_url[0], $width, $height, true, true, true );
+	
 		$return_string .= '<div class="tx-blog-item tx-post-col-'.$total_column.'"><div class="tx-border-box">';
 
 		if ( has_post_thumbnail() ) { 
 			$return_string .= '<div class="tx-blog-img"><a href="'.esc_url($full_image_url[0]).'" class="tx-colorbox">';
-			$return_string .= '<img src="'.esc_url($large_image_url[0]).'" alt="" class="blog-image" /></a><span class="tx-post-comm"><span>'.$post_comments.'</span></span></div>';
+			$return_string .= '<img src="'.esc_url($thumb_image_url).'" alt="" class="blog-image" /></a><span class="tx-post-comm"><span>'.$post_comments.'</span></span></div>';
 		} else
 		{
 			$return_string .= '<div class="tx-blog-imgpad"></div>';
@@ -394,6 +393,9 @@ function tx_portfolio_function($atts, $content = null) {
    	$total_column = intval( $atts['columns'] );
 	$tx_carousel = $atts['carousel'];
 	
+	$width = 600;
+	$height = 480;	
+	
 	if ( $atts['style'] == 'gallery' )
 	{
 		$style_class = 'folio-style-gallery';
@@ -432,13 +434,10 @@ function tx_portfolio_function($atts, $content = null) {
 
 	if ( have_posts() ) : while ( have_posts() ) : the_post();
 	
-		if (in_array("tx-medium", get_intermediate_image_sizes())) {
-			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'tx-medium' );
-		} else
-		{
-			$large_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium' );
-		}		
 		$full_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' );
+		
+		$thumb_image_url = wp_get_attachment_image_src( get_post_thumbnail_id(), 'full' );
+		$thumb_image_url = aq_resize( $thumb_image_url[0], $width, $height, true, true, true );		
 	
 
 		$return_string .= '<div class="tx-portfolio-item tx-post-col-'.$total_column.'"><div class="tx-border-box">';
@@ -446,7 +445,7 @@ function tx_portfolio_function($atts, $content = null) {
 
 		if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
 			$return_string .= '<div class="tx-folio-img">';
-			$return_string .= '<div class="tx-folio-img-wrap"><img src="'.esc_url($large_image_url[0]).'" alt="" class="folio-img" /></div>';
+			$return_string .= '<div class="tx-folio-img-wrap"><img src="'.esc_url($thumb_image_url).'" alt="" class="folio-img" /></div>';
 			$return_string .= '<div class="folio-links"><span>';	
 			$return_string .= '<a href="'.esc_url(get_permalink()).'" class="folio-linkico"><i class="fa fa-link"></i></a>';	
 			$return_string .= '<a href="'.esc_url($full_image_url[0]).'" class="tx-colorbox folio-zoomico"><i class="fa fa-search-plus"></i></a>';										
@@ -543,7 +542,7 @@ function tx_slider_function($atts, $content = null) {
 	$return_string = '';
 	$cat_slug = '';
 	
-	if(!empty($atts['category']))
+	if( !empty($atts['category']) )
 	{
 		$cat_slug = $atts['category'];
 	}
@@ -602,7 +601,7 @@ function tx_slider_function($atts, $content = null) {
 		
 		
 	endwhile; else :
-		$return_string .= '<p>Sorry, no slider matched your criteria. |'.$atts['category_id'].'|<pre>$post_in_cat</pre></p>';
+		$return_string .= '<p>Sorry, no slider matched your criteria.</p>';
 	endif;
   
    	$return_string .= '</div>';

@@ -4,7 +4,7 @@ Contributors: marsian
 Tags: shortcode, shortcodes, columns, column, section, sections, portfolio, testimonial, border, borders, button, buttons, masonry, posts, post_type, font awesome, icons, fontawesome
 Requires at least: 3.6
 Tested up to: 4.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,13 @@ Install the plugin into the `/wp-content/plugins/` folder, and activate it.
 
 == Changelog ==
 
+= 1.1.2 =
+* renamed file tnext-meta.php to tx-meta.php
+
+= 1.1.1 =
+* Added 5 new widgets
+* Added renamed function tx_register_shortcodes to avoide conflict
+* added different style of services icon
 
 = 1.0.7 =
 * Added pagination for recent posts (blog) shortcode.
