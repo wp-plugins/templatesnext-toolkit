@@ -577,7 +577,7 @@ function tx_color_picker($ele){
 }
 
 function tx_footer_include(){	
-	var tx_footer=jQuery('<div><span class="tx-outer-footer"><a href="http://www.templatesnext.org/icreate/?page_id=541">Demo and Documentation</a></span></div>').html();
+	var tx_footer=jQuery('<div class="tx-bottom-promo"><span class="tx-outer-footer"><a href="http://www.templatesnext.org/icreate/?page_id=541" target="_blank">Demo and Documentation</a> | <a href="http://templatesnext.org/ispirit/landing/" target="_blank">i-spirit, more flexibilty, more power</a></span></div>').html();
 	//tx_footer=tx_footer.outerHTML;
     return tx_footer;
 }

@@ -533,7 +533,7 @@ function tx_prodscroll_function($atts, $content = null) {
 function tx_slider_function($atts, $content = null) {
 	
    	$atts = shortcode_atts(array(
-      	'items' => 4,
+      	'items' => 10,
       	'category' => '',
 		'delay' => 8000,
       	'class' => '',								

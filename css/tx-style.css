@@ -995,8 +995,6 @@
 * related Product
 */
 
-.related.products .products .owl-controls .owl-buttons .owl-prev {}
-
 .related.products {
 	position: relative;
 	overflow: hidden;
@@ -1065,11 +1063,6 @@
 * Slider
 */
 
-.tx-slider .owl-controls .owl-buttons .owl-next span.genericon {}
-.tx-slider .owl-wrapper .owl-item.active .tx-slider-item .tx-slider-box .tx-slide-content .tx-slide-details {}
-
-
-
 .tx-slider {
 	position: relative;
 	overflow: hidden;
@@ -1083,12 +1076,6 @@
 }
 
 .tx-slider .owl-controls {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	height: 100%;
-	width: 100%;
-	z-index: 301;
 }
 
 .tx-slider .owl-controls .owl-buttons {
@@ -1096,7 +1083,9 @@
 	top: 45%;
 	left: 0px;
 	width: 100%;
-	z-index: 302;
+	height: 1px;
+	overflow: visible;
+	z-index: 102;
 }
 
 
@@ -1153,17 +1142,14 @@
 	position: relative;
 }
 
-.tx-slider .owl-wrapper .owl-item.active .tx-slider-item .tx-slider-box .tx-slide-content .tx-slide-details {}
-
 .tx-slider .owl-wrapper .tx-slide-content {
 	display: block;
 	position: absolute;
 	left: 0px;
 	top: 0px;
 	margin: 0px auto;
-	height: 100%;
 	width: 100%;
-	z-index: 302;
+	z-index: 304;
 	text-align: left;
 }
 
@@ -1171,10 +1157,11 @@
 	display: block;
 	position: relative;
 	margin: 0px auto;
-	height: 100%;
 	width: 100%;
 	max-width: 1200px;
-	padding: 32px;
+	padding: 32px 36px;
+
+	z-index: 305;	
 }
 
 .tx-slide-title {
